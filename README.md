@@ -235,22 +235,39 @@ key, value // key는 중복 불가, value는 중복 가능
 
 #### DFS
 - Depth First Search: 깊이 우선 탐색, 탐색 알고리즘 중 하나이며, 완전 탐색에 속 함
-- 스택 또는 재귀를 사용해서 구현.
+- 스택 또는 재귀를 사용해서 구현
 - 예시 트리 (하위로 방향 진행)
-- 0
-  - 1
-    - 2
-      - 3
-      - 4
-    - 5
-      - 6
-  - 7
-    - 8
-    - 9
-      - 10
-      - 11
-      - 12
+    - 0 (root)
+      - 1
+        - 2
+          - 3
+          - 4
+        - 5
+          - 6
+      - 7
+        - 8
+        - 9
+          - 10
+          - 11
+          - 12
 - 즉 최대한 깊게 뒤져볼 수 있는데 까지 뒤지는 것
+- 뒤지는 순서 : 0->1->2->3->2->4->2->1->5->6->5->1->0->... 이렇게 안뒤진데가 없을떄까지
+- code lines using 재귀 방식
+  ```
+  adj = [[0]*13 for _ in range(13)]
+  #input node connections using 인접행렬(Adjacency matrix) : [from][to]
+  adj[0][1] = adj[0][7] = 1
+  adj[1][2] = adj[1][5] = 1
+  # ... ...
+  for row in adj:
+    print(row)
+  def dfs(now):
+    for nxt in range(13):
+      if adj[now][nxt]:
+        dfs(nxt)
+
+  def(0) # call
+  ``` 
 
 #### BFS
 
