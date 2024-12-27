@@ -1,42 +1,39 @@
 # PythonAlgorithmsForCodingTest
-파이썬 알고리즘 코딩 테스트 대비 전략
+- 파이썬 알고리즘 코딩 테스트 대비 전략
 
-PART 2. 알고리즘 유형 분석
+## PART 2. 알고리즘 유형 분석
 
-Chapter 1. 자료구조 (코딩테스트에서 주로 사용되는 ...)
-> 배열(Python: List)
-Size 변경 가능
+### Chapter 1. 자료구조 (코딩테스트에서 주로 사용되는 ...)
+#### 배열(Python: List)
+- Size 변경 가능
 
-> 벡터(Python: List)
-Size 변경 가능 == List로 통일
-일반 값, 정수, 리스트, 튜플 온갖 것들을 넣을 수 있음
+#### 벡터(Python: List)
+- Size 변경 가능 == List로 통일
+- 일반 값, 정수, 리스트, 튜플 온갖 것들을 넣을 수 있음
 
-> Linked List (Python: X)
+#### Linked List (Python: X)
 
-> stack (Python: List)
-s = []
-s.append('X')
-s.append('Z')
-while len(s) > 0:
-  print(s[-1])
-  s.pop(-1)
+#### stack (Python: List)
+    s = []
+    s.append('X')
+    s.append('Z')
+    while len(s) > 0:
+        print(s[-1])
+    s.pop(-1)
 
-> queue
-from collections import deque
+#### queue
+    from collections import deque
+    q = deque()
+    q.append(1)
+    q.append(2)
+    
+    print(q)
+    
+    while len(q) > 0:
+        print(q.popleft())
+    print(q)
 
-q = deque()
-
-q.append(1)
-q.append(2)
-
-print(q)
-
-while len(q) > 0:
-  print(q.popleft())
-
-print(q)
-
-> priority queue (heap) - 우선순위 큐
+#### priority queue (heap) - 우선순위 큐
 - 17 <-- min_heap
 - 13,    / 6
 - 11, 19 / 3, 4
@@ -44,20 +41,21 @@ print(q)
 - ...
 - heappop을 하면, min_heap 부터 순서대로 빠져 나옴
 
-// mehod 1 : import heapq : fast, recommended
-- import heapq // heapq 가 길면, 이렇게 "hq"로 선언 해도 됨 -> "import heapq as hq"
-
-- pq = []
-- heapq.heappush(pq, 123)
-- heapq.heappush(pq, 456)
-- heapq.heappush(pq, 789)
-- heapq.heappush(pq, 88)
-- heapq.heappush(pq, 66)
-
-- print(pq)
-- while len(pq) > 0:
--   print(heapq.heappop(pq)) """ always pops min_heap queue value. """
--   """ 66-88-123-456-789 """
+##### mehod 1 : import heapq : fast, recommended
+    import heapq // heapq 가 길면, 이렇게 "hq"로 선언 해도 됨 -> "import heapq as hq"
+    
+    pq = []
+    heapq.heappush(pq, 123)
+    heapq.heappush(pq, 456)
+    heapq.heappush(pq, 789)
+    heapq.heappush(pq, 88)
+    heapq.heappush(pq, 66)
+    
+    print(pq)
+    
+    while len(pq) > 0:
+        print(heapq.heappop(pq)) """ always pops min_heap queue value. """
+        """ 66-88-123-456-789 """
 
 // mehod 2 : from queue import PriorityQueue : slow
 from queue import PriorityQueue
