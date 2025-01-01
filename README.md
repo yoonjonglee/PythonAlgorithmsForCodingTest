@@ -270,6 +270,57 @@ key, value // key는 중복 불가, value는 중복 가능
   ``` 
 
 #### BFS
+- Breadth First Search: 넓이 우선 탐색, 탐색 알고리즘 중 하나이며, 완전 탐색에 속 함
+- DFS 처럼 싹 뒤질거면, 무엇이 다른가?
+  - 탐색순서가 다름. 얘는 큐를 사용해서 구현
+- 예시 트리 (하위로 방향 진행)
+  - 0 (root)
+    - 1
+      - 3
+        - 7
+        - 8
+      - 4
+        - 9
+    - 2
+      - 5
+      - 6
+        - 10
+        - 11
+        - 12
+- 마찬가지로 전부 뒤져볼 수 있는데 까지 뒤지는데 계층순서로 뒤짐
+- 뒤지는 순서 : 0->1->2 뒤지고 3->4->5->6 뒤지고 7->8->9>10->11->12 뒤지고 ...
+  - 즉 다시 말해서 아래 순서로 푸쉬/팝 하면서 뒤
+    - 큐에 0푸쉬, 0팝, 1, 2 푸쉬
+    - 큐에 1팝, 3, 4 푸쉬, 2팝, 5, 6 푸쉬
+    - 큐에 3팝, 7, 8 푸쉬, 4팝, 9 푸쉬, 5팝, 6팝, 10, 11, 12 푸쉬
+    - 7, 8 팝, 9팝, 10, 11, 12 팝
+    - ...
+- code lines using 재귀 방식
+  ```
+  from collections import deque
+  
+  adj = [[0]*13 for _ in range(13)]
+  #input node connections using 인접행렬(Adjacency matrix) : [from][to]
+  adj[0][1] = adj[0][2] = 1
+  adj[1][3] = adj[1][4] = 1; adj[2][5] = adj[2][6] = 1
+  adj[3][7] = adj[3][8] = 1; adj[4][9] = 1; adj[6][10] = adj[6][11] = adj[6][12] = 1
+  
+  #for row in adj:
+  #  print(row)
+  
+  def bfs():
+    dq = deque()
+    dq.append(0)
+    while dq:
+      now = dq.popleft()
+      for nxt in range(13):
+        if adj[now][nxt]:
+          dq.append(nxt)
+
+
+  bfs() # call
+  ```
+- /
 
 #### DFS Vs. BFS
 
