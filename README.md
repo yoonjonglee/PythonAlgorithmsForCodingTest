@@ -323,12 +323,51 @@ key, value // key는 중복 불가, value는 중복 가능
 - /
 
 #### DFS Vs. BFS
+- 공통점
+  - 완탐, 모든 경우를 뒤져 답을 반드시 찾음. 완탐의 특장점을 그래도 포함
+- 차이점
+  - 뒤지는 순서가 다름
+  - 가령 최단거리를 묻는 경우, DFS는 모든 경우를 다 뒤진다음 무엇이 최단거리인지를 확인 해야
+  - 하지만, BFS는 레이어 순서로 노드들을 뒤지기 때문에 최단 거리를 먼저 찾을 확률이 높음
 
 #### 시간복잡도
+- 인접 행렬 Vs. 인접 리스트 : 둘 중 어느것을 쓰는가에 의한 시간 복잡도 
+  - 인접행렬O(V^2) : 2차원 배열 사용
+  - 인접리스트O(V+E)
+    - E는 Edge(간선) 갯수인데, 간선이 작을 수록 시간복잡도가 작은 이점이 있을 수 있음
 
 #### 예제문제(1)
+- 길찾기문제
+  - 보통 Right, Down, Left, Up 4방향 간선 존재
+  - 각 칸이 노드 의미 
+  - 방향값을 미리 코드에 짜두고 For문으로 순회하는 기법을 익혀야 함
+  - 방문체크 필요
+  - 아래 예시 코드 처럼, dy, dx 배열(튜플)없이도 구현 가능하지만, 코드 길어지고, 실수 발생 가능
+  ```
+  dy = (0, 1, 0, -1)
+  dx = (1, 0, -1, 0)
+  chk = [[False] * 100 for _ in range(100)]
+  N = int(input())
 
+  def is_valid_coord(y, x):
+    return 0 <= y < N and 0 <= x < N
+
+  def bfs(start_y, start_x):
+    q = deque()
+    q.append((start_y, start_x))
+    while len(q) > 0:
+      y, x = q.popleft()
+      chk[y][x] = True
+      for k in range(4):
+        ny = y + dy[k]
+        nx = x + dx[k]
+        if is_valid_coord(ny, nx) and not chk chk[y][x]:
+          q.append((ny, nx))
+  ```
+    
 #### 백트래킹
+- 퇴각검색, 되추적이라고도 불림
+- 삼국지처럼 전략시뮬레이션 게임처럼 상황/조건을 선택할떄마다 다른 결과가 도출되는 것을 상상
 
 #### 예제문제(2)
 
