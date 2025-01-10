@@ -4,6 +4,19 @@
 ## PART 2. 알고리즘 유형 분석
 
 ### Chapter 1. 자료구조 (코딩테스트에서 주로 사용되는 ...)
+- data type
+  - default
+    - int, float, string
+  - collection (STDL)
+    - set, tuple, dictionary, list  
+- mutable Vs. immutable
+  - immutable : default, string, tuple
+  - mutable : the others
+- essential method
+  - lambda expression (as a variable, parameter)
+  - 조기반환 (early return for exception handling)
+  - 보호구문 (if / return for parameter check)
+  - 합성함수(using lambda expression)
 #### 배열(Python: List)
 - Size 변경 가능
 
