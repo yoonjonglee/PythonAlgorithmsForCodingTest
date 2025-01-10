@@ -72,6 +72,7 @@
 #### MAP (Dictionary)
 key, value // key는 중복 불가, value는 중복 가능
 
+    #=================Ex.1
     m = {}
     m["KIM"] = 40
     m["LEE"] = 30
@@ -80,6 +81,13 @@ key, value // key는 중복 불가, value는 중복 가능
     
     for i in m:
         print(i, m[i])
+    #=================Ex.2
+    sample_dict = {'수학':80, '국어':90}
+    
+    ## 수학 성적을 95로 수정, 영어 성적 70점 추가
+    sample_dict.update({'수학':95, '영어':70})
+    print(sample_dict)
+
 
 #### 집합(set)
 
