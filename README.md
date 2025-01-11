@@ -19,6 +19,14 @@
   - 합성함수(using lambda expression)
 #### 배열(Python: List)
 - Size 변경 가능
+- 정렬
+  - .sort() method
+    - list.sort(), list.sort(reverse=True)형태로 사용(default: ascending오름차순, reverse:False)
+    - !주의! 위 메소드 사용 시 자기 자신 list 정렬이 되어 버림
+  - sorted(arg) function
+    - var = sorted(list), sorted(list, reverse=True)형태로 사용 (default: ascending오름차순, reverse:False)
+    - !주의! 정렬된 결과 리스트가 저장될 변수를 선언해야 함
+  - 간단한 오름/내림차순 정렬 시, 위 함수가 어떤 정렬알고리즘(e.g. 버블)들 보다 더 빠름
 
 #### 벡터(Python: List)
 - Size 변경 가능 == List로 통일
