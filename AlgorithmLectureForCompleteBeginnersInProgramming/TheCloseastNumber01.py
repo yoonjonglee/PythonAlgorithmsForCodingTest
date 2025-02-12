@@ -1,5 +1,5 @@
 import sys
-input = sys.stdin.readline()
+input = sys.stdin.readline
 """
 """
 print("input any numbers")
@@ -12,4 +12,4 @@ gapList = []
 for i in range(len(nList)):
      gapList.append(abs(nList[i] - num))
 
-print(f"the closeast number with 3 is {nList[gapList.index(min(gapList))]}")
+print(f"the closeast number with {num} is {nList[gapList.index(min(gapList))]}")
