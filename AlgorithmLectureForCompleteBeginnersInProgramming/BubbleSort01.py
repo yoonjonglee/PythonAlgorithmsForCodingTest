@@ -1,5 +1,5 @@
 import sys
-input = sys.stdin.readline
+inputs = sys.stdin.readline
 
 """
 4231
@@ -10,12 +10,22 @@ input = sys.stdin.readline
 31(12)->2134
 21(01)->1234
 """
-print("input any integer numbers to be bubble sorted")
-#nList = list(map(int, input().split()))
-#result = sorted(nList, reverse = True)
-
-for i in range():
-    #0 1 2 3
-    for i+1 in range():
-        #1 2 3 4
         
+# 2025.02.13
+# Bubble Sort
+
+# input
+print("input any integer numbers to be bubble sorted")
+nList = list(map(int, inputs().split()))
+
+# process
+for i in range(1, len(nList)):
+    for j in range(len(nList)-i):
+        #print(f"{j}, {j+1}")
+        if nList[j] > nList[j+1]:
+            temp = nList[j+1]
+            nList[j+1] = nList[j]
+            nList[j] = temp
+
+# output
+print(nList)
