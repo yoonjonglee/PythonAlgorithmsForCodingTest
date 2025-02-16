@@ -7,10 +7,13 @@ num = int(input())
 
 #nList =  list(map(int, input().split()))
 #nLIst1D = [ i for i in range(num) ]
-nList2D = []
-
-for i in range(1, num+1):
+nList = []
+nList2D = [[] for _ in range(num)]
+              
+for i in range(num):
     for j in range(1, num+1):
-       list(nList2D.append(j*i))
+        nList.append(j+i*num)
+    nList2D[i] = nList
+    nList = []
 
 print(nList2D)
