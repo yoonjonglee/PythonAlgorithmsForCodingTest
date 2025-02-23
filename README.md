@@ -414,10 +414,29 @@ key, value // key는 중복 불가, value는 중복 가능
 - DFS, BFS, 백트래킹 모두 완전탐색 알고리즘. 최악의 경우 모든 노드를 탐색하는 것은 동일
 - 최단거리를 구할 때 : BFS
 - DFS: 재귀(or Stack), BFS는 Queue로 구현
-- 가지치기를 하면 백트래
+- 가지치기를 하면 백트랙킹
 ----------------
-### Chapter 5. 이분 탐색 Binary Search
+### Chapter 5. 이분(이진) 탐색 Binary Search
+- 탐색 전에 반드시 정렬 되어있어야 함
+  - 복잡도 계산: 정렬<O(NlogN)> + 이진 탐색<O(logN)> --> 결과적으로 O(NlogN)
+  - 미리 정렬되어 있으면 이진탐색만 하면 되므로 O(logN)
+- 살펴보는 범위를 절반 씩 줄여가면서 답을 찾음
 
+#### 라이브러리
+- 각 언어별로 이진 탐색 기반의 API 라이브러리들을 제공 함
+- python : bisect_left/right
+  ```
+  from bisect import bisect_left, bisect_right
+
+  v = (0,1,3,3,6,6,6,7,8,8,9)
+  three = bisect_right(v, 3) - bisect_left(v, 3)
+  four = bisect_right(v, 4) - bisect_left(v, 4)
+  six = bisect_right(v, 6) - bisect_left(v, 6)
+  print(f"number of 3: {three}")  # 2
+  print(f"number of 4: {four}")   # 0
+  print(f"number of 6: {six}")    # 3
+  ```
+- /
 ----------------
 ### Chapter 6. 동적 계획법 Dynamic Programming
 
