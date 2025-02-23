@@ -473,6 +473,26 @@ key, value // key는 중복 불가, value는 중복 가능
       - 이진탐색과 같은 원리
 
 #### 예제문제(1)
+- boj.kr/2512
+- 2512. 예산
+```
+N = int(input())
+req = list(map(int, input().split()))
+M = int(input())
+lo = 0; hi = max(req); mid = (lo + hi) / 2; ans = 0
+def is_possible(mid):
+  for r in req:
+    return sum(min(r, mid) for r in req) < M
+while(lo < hi):
+  print(f"lo:{lo}, mid:{mid}, hi:{hi}, ans: {ans}")
+  if is_possible(mid):
+    lo = mid + 1
+    ans =mid
+  else:
+    hi = mid - 1
+  mid = (lo + hi) // 2
+print(ans)
+```
 - /
 #### 예제문제(2)
 - /
