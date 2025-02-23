@@ -425,7 +425,27 @@ key, value // key는 중복 불가, value는 중복 가능
 #### 라이브러리
 - 각 언어별로 이진 탐색 기반의 API 라이브러리들을 제공 함
 - python : bisect_left/right
+  - bisect_left : 찾는 요소가 처음 등장하는 idx를 반환
+  - bisect_right: 찾는 요소가 마지막에 등장하는 idx의 다음 idx를 반환
+  - 찾는 요소가 없는 경우 : 찾는 요소가 삽입 될 수 있는 idx를 반환
   ```
+  EX.1
+  list = [1,3,4,5,7,8,9,11,13]
+  # 리스트에 있는 요소 탐색
+  print(bisect.bisect_left(list, 11)) # 7
+  print(bisect.bisect_right(list, 11)) # 8
+  # 리스트에 없는 요소 탐색
+  print(bisect.bisect_left(list, 2)) # 1
+  print(bisect.bisect_right(list, 2)) # 1
+
+  EX.2
+  list = [1,3,4,5,7,8,9,12,12,12,12,12,13]
+  # 리스트에 있는 요소 탐색
+  print(bisect.bisect_left(list, 12)) # 7
+  print(bisect.bisect_right(list, 12)) # 12
+  # 두개의 차이 5 == 12의 갯수
+  
+  EX.3
   from bisect import bisect_left, bisect_right
 
   v = (0,1,3,3,6,6,6,7,8,8,9)
@@ -436,6 +456,25 @@ key, value // key는 중복 불가, value는 중복 가능
   print(f"number of 4: {four}")   # 0
   print(f"number of 6: {six}")    # 3
   ```
+- /
+#### 파라메트릭 서치(Parametric Search, 매개변수 탐색)
+- 최적화 문제를 결정 문제로 바꾸어 이진 탐색으로 푸는 방법
+  - 최적화 문제(Optimization Problem) : 문제 상황을 만족하는 변수의 최소값, 최대값을 구함
+  - 결정 문제 (Decision Problem) : Yes/No를 구함
+  - EX. 유데미 수강생들의 외모값과 커플/솔로 여부가 주어짐. 커플들은 솔로들보다 외모값이 높음. 외모값이 최소 얼마 이상일 때 부터 커플인가?
+    - 입력정보
+      - 회원  | a, b, c, d ... ...
+      - 커플  | F, F, T, T ... ...
+      - 외모값| 2, 3, 6, 8 ... ...
+    - 풀이
+      - 파라미터가 주어지면 True / False가 결정되어야 함 (파라미터서치 사용조건)
+      - 가능한 해의 영역이 연속적(list)이어야 함 (파라미터서치 사용조건)
+      - 범위를 반씩 줄여가면서 가운데 값이 True인지, False인지 구함
+      - 이진탐색과 같은 원리
+
+#### 예제문제(1)
+- /
+#### 예제문제(2)
 - /
 ----------------
 ### Chapter 6. 동적 계획법 Dynamic Programming
