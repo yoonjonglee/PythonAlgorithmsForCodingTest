@@ -508,9 +508,12 @@ print(ans)
 - boj.kr/10815
 - 10815. 숫자카드
 - 입력
-  - 
+  - N(1이상 50만이하): 상근이의 숫자카드 갯수
+  - 숫자열(공백구분, -1000만이상, 1000만 이하, 중복없음): 상근이의 숫자카드들 N개
+  - M(1이상 50만이하): 입력받을 숫자카드 갯수
+  - 숫자열(공백구분, -1000만이상, 1000만 이하, 중복없음): 확인을할 숫자카드들 M개
 - 출력
-  - 첫째 줄에 입력으로 주어진 숫자들에 대
+  - 확인을할 숫자카드들이 각각 상근이의 숫자카드들에 있으면 1, 아니면 0을 공백으로 구분 출력
 - 예제1
   - 입력
     - 5
@@ -520,9 +523,39 @@ print(ans)
   - 출력
     - 1 0 0 1 1 0 0 1
 ```
+import sys
+from bisect import bisect_left, bisect_right
+input = sys.stdin.readline
 
+#input
+numN = int(input())
+nListN = sorted(list(map(int, input().split())))
+numM = int(input())
+nListM = list(map(int, input().split()))
+nListResult = []
+
+#process
+"""
+for i in range(numM):
+    if nListM[i] in nListN:
+        nListResult.append(1)
+    else:
+        nListResult.append(0)
+"""
+for m in nListM:
+    l = bisect_left(nListN, m)
+    r = bisect_right(nListN, m)
+    nListResult.append(1 if r - l else 0)
+
+#output
+#print(f"{nListResult}")
+print(*nListResult)
 ```
 - /
+#### 이진탐색 정리
+- 탐색 전에 반드시 입력 리스트가 정렬되어 있어야
+- 살펴보는 범위를 절반씩 줄여가면서 답을 찾음
+- 파이썬의 경우 bisect_left, bisect_right API를 반드시 사용할 줄 알아야 
 ----------------
 ### Chapter 6. 동적 계획법 Dynamic Programming
 
