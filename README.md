@@ -557,7 +557,114 @@ print(*nListResult)
 - 살펴보는 범위를 절반씩 줄여가면서 답을 찾음
 - 파이썬의 경우 bisect_left, bisect_right API를 반드시 사용할 줄 알아야 
 ----------------
-### Chapter 6. 동적 계획법 Dynamic Programming
+### Chapter 6. 동적 계획법 Dynamic Programming (DP)
+- 하나도 다이나믹하지 않음. 그냥 있어보이라고 붙인 이름 같음
+- 문제를 쪼개서 작은 문제의 답을 구하고, 그걸로 더 큰 문제의 답을 구하는 걸 반복
+- 분할 정복과 비슷한 느낌
+- DP 구현 2가지
+  - Top Down  --> 구현: 재귀   / 저장방식 : 메모이제이션 (Memoization)
+    - Memoization ( !주의! 메모라이제이션 Memorization 아님)
+      - 한번 구한 답들은 저장 해 둠
+      - 부분 문제들의 답을 한 번 구했으면 또 구하지 않음 (중복 연산 방지). Cache에 저장 후 가져다 씀
+      - 필요한 부분 문제들만 구함 (Lazy Evaluation), Top Dwon  방식에서 사용
+      - 4살 아들한테 메모이제이션을 설명하기
+        - 아빠 : (종이에 1+1+1+1+1+1+1+1 을 적고) 정답이 뭘까
+        - 아들 : (세보고) 8이요
+        - 아빠 : (왼쪽에 +1 을 또 적고) 정답이 뭘까
+        - 아들 : (바로) 9요
+        - 아빠 : 오, 어떻게 바로 알았냐
+        - 아들 : 하나 더 했으니깐요
+        - 아빠 : 앞에 답을 8로 기억했었으니까 처음부터 다시 셀필요가 없었네~
+  - Bottom Up --> 구현: 반복문 / 저장방식 : 테이뷸레이션 (Tabulation)
+    - Tabulation
+      - 미리 다 구해두자
+      - 부분 문제들의 답을 미리 다 구해두면 편함
+      - 테이블을 채워나간다는 의미라서 테이뷸레이션
+      - 필요 없는 부분 문제들까지 모두 구함 (Eager Evaluation), Bottom Up 방식에서 사용
+  - 피보나치 수열 (Fibonacci)
+    - 0 1 (0+1) 1+(0+1) (0+1)+1+(0+1) 1+(0+1)+(0+1)+1+(0+1) ...
+      - Fn := 0 1 F(n-1)+F(n-2)
+      - Example : 아래와 같은 형태의 피보나치 수열을 구해야 한다고 가정
+      - F6
+        - F5
+          - F4
+            - F3
+              - F2
+                - F1
+                - +F0
+              - +F1
+            - +F2
+              - F1
+              - +F0
+          - +F3
+            - F2
+              - F1
+              - +F0
+            - F1
+        - +F4
+          - F3
+            - F2
+              - F1
+              - +F0
+            - +F1
+          - +F2
+              - F1
+              - +F0
+    - 위에서 매번 구할 필요 없이 중복되는 연산은 하지 않고 저장해 두고 있다 불러 참조하면 단순화 가능
+    - 저장하는 곳은 캐시(메모이제이션) 또는 테이블(테이블레이션)
+    - 이 두개 방식은 직접적 연관은 없으나, DP를 구현하는데 사용된다는 공통점이 있음음
+
+#### 예제문제(1)
+- boj.kr/2748
+- 2748. 피보나치 수 2
+- 입력
+  - 정수 N (N<=90)
+- 출력
+  - N번째 피보나치 수를 출력
+- 예제1
+  - 입력
+    - 10
+  - 출력
+    - 55
+```
+import sys
+input = sys.stdin.readline
+#input
+#process 
+cache = [-1] * 91
+cache[0] = 0
+cache[1] = 1
+cnt = 0
+
+def f(n):
+    global cnt
+    cnt += 1
+    # Top Down, using No cache[] : cnt goes much bigger
+    """
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return f(n-1) + f(n-2)        # Issue : Time takes so long
+    """
+    # Top Down, using  cache[] : cnt goes much smaller
+    """
+    if cache[n] == -1:
+        cache[n] = f(n-1) + f(n-2)
+        
+    return cache[n]
+    """
+    # Bottom Up, using for loop
+    for i in range(2, n+1):
+        cache[i] = cache[i-1] + cache[i-2]
+        
+    return cache[n]
+    
+#output
+print(f(int(input())))
+print(cnt)
+```
 
 ----------------
 ## PART 3. 알고리즘 핵심문제
