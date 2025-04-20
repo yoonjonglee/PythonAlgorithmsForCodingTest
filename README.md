@@ -35,35 +35,64 @@
 #### Linked List (Python: X)
 
 #### stack (Python: List)
-    s = []
+- List로 구현
+- 구현 예시 - 인터넷 브라우저 뒤로가기 기능
+    ```
+	s = []
     s.append('X')
     s.append('Z')
     while len(s) > 0:
         print(s[-1])
-    s.pop(-1)
+		s.pop(-1)    # same with s.pop()
+	```
 
 #### queue
-    from collections import deque
+- deque(Double Ended QUEue - 덱)를 쓰는 이유
+  - Queue: multi-thread 환경의 안정성 고려O, 처리 성능이 낮음
+  - deque: multi-thread 환경의 안정성 고려X, 처리 성능이 높음
+- 알고리즘 코딩 테스트 환경은 multi-thread를 고려 X, deque를 사용
+- deque는 양방향으로 값을 넣고 뺴는 queueing이 가능
+    ```
+	#from queue import Queue
+	from collections import deque
+	
     q = deque()
     q.append(1)
     q.append(2)
+	q.appendleft(34)            # 왼쪽(시작)방향에 값을 입력
     
     print(q)
     
     while len(q) > 0:
-        print(q.popleft())
+        print(q.pop())
+		print(q.popleft())        # 왼쪽(시작)방향에 값을 출력
+		
     print(q)
+	```
 
 #### priority queue (heap) - 우선순위 큐
-- 17 <-- min_heap
-- 13,    / 6
-- 11, 19 / 3, 4
-- 10, 4 / 2 ,5/ 1 / 0
-- ...
+- 17        <-- min_heap (root node)
+  - 13
+    - 11
+	  - 10
+	  - 4
+	- 19
+	  - 2
+	  - 5
+  - 6
+    - 3
+	  - 1
+	- 4
 - heappop을 하면, min_heap 부터 순서대로 빠져 나옴
+- heapq를 쓰는 이유
+  - PriorityQueue: multi-thread 환경의 안정성 고려O, 처리 성능이 낮음
+  - heapq: multi-thread 환경의 안정성 고려X, 처리 성능이 높음
+- 알고리즘 코딩 테스트 환경은 multi-thread를 고려 X, heapq를 사용
 
 ##### mehod 1 : import heapq : fast, recommended
-    import heapq // heapq 가 길면, 이렇게 "hq"로 선언 해도 됨 -> "import heapq as hq"
+    ```
+	# from queue import PriorityQueue
+	import heapq   # heapq 가 길면, 이렇게 "hq"로 선언 해도 됨 -> "import heapq as hq"
     
     pq = []
     heapq.heappush(pq, 123)
@@ -75,9 +104,10 @@
     print(pq)
     
     while len(pq) > 0:
-        print(heapq.heappop(pq)) """ always pops min_heap queue value. """
-        """ 66-88-123-456-789 """
-
+        print(heapq.heappop(pq))        # always pops min_heap queue value in order.
+	# Example: 66 -> 88 -> 123 -> 456 -> 789
+	```
+	
 ##### mehod 2 : from queue import PriorityQueue : slow
     from queue import PriorityQueue
     
@@ -91,8 +121,8 @@
     print(pq)
 
 #### MAP (Dictionary)
-key, value // key는 중복 불가, value는 중복 가능
-
+- key, value : key는 중복 불가(중복 시, 해당 key의 value가 update 됨), value는 중복 가능
+```
     #=================Ex.1
     m = {}
     m["KIM"] = 40
@@ -108,12 +138,14 @@ key, value // key는 중복 불가, value는 중복 가능
     ## 수학 성적을 95로 수정, 영어 성적 70점 추가
     sample_dict.update({'수학':95, '영어':70})
     print(sample_dict)
+	
+```
 
 
 #### 집합(set)
+- Index 없음(==append(), slice()불가), 원소의 중복 불가(무시)
 
-원소의 중복 불가
-
+```
     s = set()
     s.add(456)
     s.add(12)
@@ -121,15 +153,119 @@ key, value // key는 중복 불가, value는 중복 가능
     s.add(789)
     s.add(678)
     print(s)
-    
+    print(len(s))    # size: 4
+	
     for i in s:
         print(i)
         
-    """
-    s.pop()   # random으로 아무 값이나 제거
-    s.clear() # 모든 원소 값 제거
-    s.remove(50) # 원소 50 제거
-    """
+    s.pop()            # random으로 아무 값이나 제거 (쓸모없음?) 
+    s.clear()           # 모든 원소 값 제거
+    s.remove(50)   # 원소 50 제거 (특정값 제거)
+```
+#### 예제문제-1
+- boj.kr/9012
+- 9012. 괄호
+- note
+  - ((())) : 여는 괄호 순서는 닫는 괄호 순서 와 반대로 Pair, stack 사용으로 처리
+  - VPS : Valid Parenthesis String
+```
+for _ in range(int(input())):
+    stack = []
+    isVPS = True                        #isVPS True: ( ), isVPS False: ) or ( 
+    for ch in input():
+            if ch == '(' :
+                stack.append(ch)
+            else:
+                if len(stack) > 0:
+                    stack.pop()
+                else:
+                    isVPS = False
+                    break
+    if len(stack) > 0:
+        isVPS = False
+    print('YES' if isVPS else 'NO')
+```
+
+#### 예제문제-2
+- boj.kr/2164
+- 2164. 카드2
+- note
+ - 숫자 입력 (e.g. 6) --> 1,2,34,5,6 이 주어진다고가정
+ - "맨 위 카드 제거 --> 맨 위 카드 끝으로"를 계속 반복 하면 마지막남는 카드 숫자?
+ - 6이면, 4가 나옴
+ - 문제종류: 시뮬레이션, 배열에서 삭제->삽입 반복 --> 큐(덱)이용, 리스트를 이용하면 5000입력 시 시간 초과
+```
+from collections import deque
+
+dq = deque()
+N = int(input())
+dq = deque(range(1, N+1))
+
+while len(dq) > 1:
+  dq.popleft()
+  dq.append(dq.popleft())
+  print(dq)
+
+print(dq.popleft())
+```
+#### 예제문제-3
+- boj.kr/11286
+- 11286. 절댓값 힙
+- note
+ - 우선순위 큐를 이용
+ - 일반 input()함수 말고, sys.stdin.readline 을 input변수로 저장하여 사용 (속도 증가)
+```
+import sys
+import heapq as hq
+
+input = sys.stdin.readline
+pq = []
+for _ in range(int(input()):
+  x = int(input())
+  if x:
+    hq.heappush(pq, (abs(x), x))
+  else:
+    if pq:
+	  print(hq.heappop(pq)[1])
+	else:
+	  print(0)
+```
+#### 예제문제-4
+- boj.kr/1302
+- 1302. 베스트셀러
+- note
+ - 입력들 중 가장 많이 동일하게 반복 된 문자열 1개를 출력
+ - 반복 수가 동일하면, 그 중 오름차순위가 높은 문자열을 출력
+ - dictionary, map을 사용 할 수 있음
+```
+d = dict()
+for _ in range(int(input())):
+  book = input()
+  if book in d:
+    d[book] += 1
+  else:
+    d[book] = 1
+#d.keys()
+#d.values()
+#d.items()
+m = max(d.values())
+print(m)
+BS = []
+for k, v in d.items():
+  if v == m:
+    BS.append(k)
+
+print(BS)
+print(sorted(BS)[0])
+```
+
+#### 정리
+- array, vector
+- stack
+- queue
+- priorty_queue
+- map (dictionary)
+- set
 
 ### Chapter 2. 완전 탐색
 - 장점: 확실히 답을 찾을 수 있으며, 전부 뒤졌지만 없으면, 이것은 진짜 답이 없다는 것 확인 한 셈(e.g. 중국집메뉴)
@@ -145,22 +281,58 @@ key, value // key는 중복 불가, value는 중복 가능
 - ! Caution: 시간제한 1초, 2<= N <=1000000 조건 적용: NC2 -> 시간복잡도가 너무 커서 1초 이내 계산 어려움
 - 정렬을 사용하여 적용 가능
 
-  
 ##### mathod1: 순열 permutation 사용하면 해결 가능 (next_permutation)
-    #Code
-    from itertools import permutations
-    
-    v = [0,1,2,3] // already sorted
-    for i in permutation(v, 2): #2: number of choices
-        print(i)
-##### mathod2: 조합 combinations 사용하면 해결 가능 (combinations)
-    #Code
-    from itertools import combinations
-    
-    v = [0,1,2,3] // already sorted
-    for i in combinations(v, 2): #2: number of choices
-        print(i)
+```
+from itertools import permutations
 
+v = [0,1,2,3] # already sorted
+for i in permutation(v, 2): #2: number of choices
+	print(i)
+
+#### result of combinations(v, 4)
+(0, 1, 2, 3)
+(0, 1, 3, 2)
+(0, 2, 1, 3)
+(0, 2, 3, 1)
+(0, 3, 1, 2)
+(0, 3, 2, 1)
+(1, 0, 2, 3)
+(1, 0, 3, 2)
+(1, 2, 0, 3)
+(1, 2, 3, 0)
+(1, 3, 0, 2)
+(1, 3, 2, 0)
+(2, 0, 1, 3)
+(2, 0, 3, 1)
+(2, 1, 0, 3)
+(2, 1, 3, 0)
+(2, 3, 0, 1)
+(2, 3, 1, 0)
+(3, 0, 1, 2)
+(3, 0, 2, 1)
+(3, 1, 0, 2)
+(3, 1, 2, 0)
+(3, 2, 0, 1)
+(3, 2, 1, 0)
+```
+##### mathod2: 조합 combinations 사용하면 해결 가능 (combinations)
+```
+from itertools import combinations
+
+v = [0,1,2,3] # already sorted
+for i in combinations(v, 2): #2: number of choices
+	print(i)
+
+#### result of combinations(v, 4)
+(0, 1, 2, 3)
+#### result of combinations(v, 2)
+(0, 1)
+(0, 2)
+(0, 3)
+(1, 2)
+(1, 3)
+(2, 3)
+```
 #### Q
 - boj.kr/2309, 2309. 일곱난쟁이
 - algorithm: 조합, combinations
