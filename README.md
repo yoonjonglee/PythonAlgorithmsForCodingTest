@@ -335,7 +335,25 @@ for i in combinations(v, 2): #2: number of choices
 ```
 #### Q
 - boj.kr/2309, 2309. 일곱난쟁이
-- algorithm: 조합, combinations
+- algorithm: 조합, combinations 을 사용해서 출력 해볼 것
+- note
+ - 일곱 난쟁이의 키의 합은 100이고, 각 난쟁이들의 키는 100 이하
+ - 9줄로 입력되는 난쟁이 키들 중 7명의 키를 오름차순으로 출력
+```
+from itertools import combinations
+
+tall = [ int(input()) for _ in range(9) ]
+#print(tall)
+#print(combinations(tall, 7))
+
+for i  in combinations(tall, 7):
+  #print(i)
+  if sum(i) == 100:
+    for tall in sorted(i):
+	  print(tall)
+	
+	break
+```
 
 #### Summary
 - 무식하게 모든 경우 수를 다 살펴봐도 시간 초과 나지 않을지 확인
