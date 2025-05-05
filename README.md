@@ -375,8 +375,63 @@ for i  in combinations(tall, 7):
 #### Q
 - boj.kr/11047, 11047. 동전0
 - algorithm: greedy
+- note
+  - N : 동전들 갯수, K : 총 금액
+  - N0, N1, ... Nn : 각 금액 동전들 ( 1, 5, 10, ...)
+  - 가장 최소의 동전들로 금액 K를 맞춰라
+
+```
+import sys
+
+readl=sys.stdin.readline
+N, K = map(int, readl().split())
+coins = [int(readl()) for _ in range(N)]
+coins.reverse()
+ans = 0
+
+for coin in coins:
+    ans = ans + (K // coin)
+    K = K % coin
+    print(f"coin: {coin}, K: {K}, ans:{ans}")
+
+#print(N, K)
+#print(coins)
+print(ans)
+```
+
 - boj.kr/1449, 1449. 수리공 항승
 - algorithm: greedy
+- note
+  - N : 물새는 구멍 갯수, L: 테이프길이
+  - N1, N2, ... : 물 새는 구멍 위치
+  - 수리공이 필요한 테이프 갯수를 구하라
+  - 테이프 1개 길이가 커버가능한 구멍 위치가 몇개 까지일지를 파악하는게 핵심
+  - 가령, 테이프 길이가 2 이면, 구멍위치가 1, 5, 10, 이면, 테이프는 3개가 필요. 구멍위치가 1, 2 면 1개만 필요 
+
+```
+import sys
+
+readl=sys.stdin.readline
+N, L = map(int, readl().split())
+coord = [False] * 1001             # 1000 sized list matrix
+for i in map(int, readl().split()):
+    coord[i ]= True
+
+ans = 0
+x = 0
+
+while x < len(coord):
+    if coord[x]:
+        ans = ans + 1    #1(테이프갯수) ...
+        x = x + L        #1(구멍위치)+3(L), ..  --> 이렇게 하면, L안에서 커버되는 구멍위치는 계산 불필요
+    else:
+        x = x + 1        #구멍위치1씩 층가...
+
+print(ans)
+```
+#### Summary
+- 무식하게 모든 경우 수를 다 살펴봐도 시간 초과 나지 않을지 확인
+- 될거 같음 완탐으로 문제를 풀고, 안될 거 같음 더 효율적인 알고리즘을 찾아보자 (그리디, DP, 이분법 등) 
 
 ### Chapter 4. DFS, BFS, 백트래킹
 - 선행 습득 자료구조 : 그래프
